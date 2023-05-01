@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Optimize Inventory</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Optimize Inventory</h1>
+    <form action="/optimize" method="POST">
+      <div class="form-group">
+        <label for="num_products">Number of Products:</label>
+        <input type="number" class="form-control" name="num_products" id="num_products" min="1" required>
+      </div>
+
+      <fieldset>
+        <legend>Product Details:</legend>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Purchase Cost</th>
+                <th>Selling Price</th>
+                <th>Holding Cost</th>
+                <th>Shortage Cost</th>
+                <th>Mean Demand</th>
+                <th>Std Demand</th>
+                <th>Mean Lead Time</th>
+                <th>Std Lead Time</th>
+                <th>Capacity</th>
+                <th>Reorder Point</th>
+                <th>Safety Stocks</th>
+              </tr>
+            </thead>
+            <tbody id="product-details">
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+      <br>
+      <button type="submit" class="btn btn-primary">Optimize Inventory</button>
+    </form>
+  </div>
+
+  <script>
+    const numProductsInput = document.getElementById('num_products');
+    const productDetailsTable = document.getElementById('product-details');
+
+    function updateProductDetails() {
+      const numProducts = numProductsInput.value;
+      productDetailsTable.innerHTML = '';
+
+      for (let i = 0; i < numProducts; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="text" class="form-control" name="product_name_${i}" required></td>
+          <td><input type="number" class="form-control" name="purchase_cost_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="selling_price_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="holding_cost_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="shortage_cost_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="mean_demand_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="std_demand_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="mean_lead_time_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="std_lead_time_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="capacity_${i}" min="0" required></td>
+          <td><input type="number" class="form-control" name="reorder_point_${i}" min="0" required></td>
+          <td><input class="form-control" type="number" name="safety_stock_${i}" min="0" required></td>
+          `;
+          productDetailsTable.appendChild(tr);
+        }
+      }
+
+      numProductsInput.addEventListener('input', updateProductDetails);
+    </script>
+  </body>
+</html>
