@@ -3,7 +3,9 @@
 
 <head>
   <title>Optimize Inventory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
@@ -41,7 +43,7 @@
         </div>
       </fieldset>
       <br>
-      <button type="submit" class="btn btn-primary">Optimize Inventory</button>
+      <button type="submit" class="btn btn-primary btn-animated">Optimize Inventory</button>
     </form>
   </div>
 
@@ -66,14 +68,35 @@
           <td><input type="number" class="form-control" name="mean_lead_time_${i}" min="0" required></td>
           <td><input type="number" class="form-control" name="std_lead_time_${i}" min="0" required></td>
           <td><input type="number" class="form-control" name="capacity_${i}" min="0" required></td>
-          <td><input type="number" class="form-control" name="reorder_point_${i}" min="0" required></td>
-          <td><input class="form-control" type="number" name="safety_stock_${i}" min="0" required></td>
-          `;
-          productDetailsTable.appendChild(tr);
-        }
-      }
+<td><input type="number" class="form-control" name="reorder_point_${i}" min="0" required></td>
+<td><input type="number" class="form-control" name="safety_stock_${i}" min="0" required></td>
+`;
+productDetailsTable.appendChild(tr);
+}
+}
+numProductsInput.addEventListener('input', updateProductDetails);
+</script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-87ftB75Gtve8hnwVVsJOM92dZjKId9TbuSXzTDeG1rAZqwISL+WcQn+8KrIgTRsT"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Button animation
+    const btn = document.querySelector(".btn-animated");
+    btn.addEventListener("click", function (e) {
+      let x = e.clientX - e.target.offsetLeft;
+      let y = e.clientY - e.target.offsetTop;
 
-      numProductsInput.addEventListener('input', updateProductDetails);
-    </script>
-  </body>
+      let ripples = document.createElement("span");
+      ripples.style.left = x + "px";
+      ripples.style.top = y + "px";
+      this.appendChild(ripples);
+
+      setTimeout(() => {
+        ripples.remove();
+      }, 1000);
+    });
+  </script>
+</body>
 </html>
